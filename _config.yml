@@ -1,0 +1,8 @@
+title: Web
+description: 網頁學習的範例(js,css,html)
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-leap-day
+
+gems:
+  - jekyll-mentions
