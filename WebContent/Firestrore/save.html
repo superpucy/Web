@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>遜砲賴的爆肝筆記</title>    
+        <!-- Plugins CSS -->
+        <link href="css/plugins/plugins.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        
+
+        <script src="js/jquery.min.js"></script>
+        
+        <script src="js/editormd.min.js"></script>
+        <link rel="stylesheet" href="css/editormd.min.css" />
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137527589-1"></script>
+        <!--Google AD-->
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <script src="js/filestore.js"></script>
+    </head>
+  
+    <body>
+
+        <!-- Site Overlay -->
+        <div class="site-overlay"></div>
+
+        <nav class="navbar navbar-expand-lg navbar-light navbar-transparent bg-faded nav-sticky">
+                <div class="container">
+    
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div  id="navbarNavDropdown" class="navbar-collapse collapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item dropdown dropdown-full-width">
+                                <a class="nav-link" href="list.html">文章列表</a>
+                            </li>
+                        </ul>        
+                    </div>
+                    
+                </div>
+            </nav>
+        <div class="page-titles-img title-space-lg bg-parallax parallax-overlay mb30" data-jarallax='{"speed": 0.2}' style='background-image: url("images/bg14.jpg")'>
+            <div class="container">
+                <div class="row">
+                    <div class=" col-md-8 ml-auto mr-auto">
+                        <h1 class='text-uppercase' id="tag-title">編輯文章</h1>
+                        <p id="tag-desc" class="lead text-white-gray"></p>
+                    </div>
+                </div>
+            </div>
+        </div><!--page title end-->
+        <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="list.html" class="btn btn-primary">返回文章列表</a>
+                        <input type="button" value="發佈" id="save-btn" class="btn btn-primary">
+                        <input type="button" value="暫存" id="saveTemp-btn" class="btn btn-primary">
+                        <input type="button" value="刪除" id="delete-btn" class="btn btn-primary">
+                    </div>
+                </div>
+                <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">標題</label>
+                    <input type="text" id="title" placeholder="請輸入標題" size="80%" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tags</label>
+                    <input type="text" id="tags" placeholder="請輸入tag" size="80%" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="introduction">簡介</label>
+                    <textarea id="introduction" class="form-control"></textarea>
+                </div>
+        
+            </form>
+
+            <div id="test-editormd">
+                <textarea style="display:none;" >
+                </textarea>
+            </div>
+    
+        </div>
+        <footer class="footer footer-dark pt50 pb30">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6  ml-auto mr-auto text-center">
+                            <ul class="social-icons list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-facebook"></i>Facebook
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#">
+                                        <i class="fa fa-instagram"></i>instagram
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://www.linkedin.com/in/ina-lai-b0b19887/" target="_blank">
+                                        <i class="fa fa-linkedin"></i>linkedin
+                                    </a>
+                                </li>
+                            </ul>
+                            <p>&copy; Copyright 2018. Assan 3.0</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        <!--back to top-->
+        <a href="#" class="back-to-top hidden-xs-down" id="back-to-top"><i class="ti-angle-up"></i></a>
+        <!-- jQuery first, then Tether, then Bootstrap JS. -->
+        <!-- <script src="../js/plugins/plugins.js"></script> 
+        <script src="../js/assan.custom.js"></script>  -->
+        <script type="text/javascript">
+			var testEditor;
+
+            $(function() {
+                testEditor = editormd("test-editormd", {
+                    width   : "100%",
+                    height  : 640,
+                    syncScrolling : "single",
+                    path    : "lib/",
+                    codeFold : true,
+                    //syncScrolling : false,
+                    saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+                    searchReplace : true,
+                    //watch : false,                // 关闭实时预览   
+                    //toolbar  : false,             //关闭工具栏
+                    //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                    emoji : true,
+                    taskList : true,
+                    tocm            : true,         // Using [TOCM]
+                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+                    flowChart : true,             // 开启流程图支持，默认关闭
+                    sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+                    imageUpload    : true,
+                    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    crossDomainUpload : false,
+                    imageUploadURL : "http://www.superpucy.com/upload.html",
+                    uploadCallbackURL : "http://www.superpucy.com/upload_callback.html"
+                });
+            });
+
+            var count = 0;
+            var status = "0";
+            function setBlog(doc){
+                $("#title").val(doc.data().title);   
+                $("#introduction").val(doc.data().introduction);   
+                $("#tags").val(doc.data().tags.join());
+                testEditor.setMarkdown(doc.data().markdown);
+                if(doc.data().count !== undefined){
+                    count = doc.data().count;
+                }
+                status = doc.data().status;
+            }
+            getBlog(setBlog);
+
+            $("#save-btn").bind('click', function(){
+                var data = getData();
+                data.status = "1";
+                saveBlog(data,function(){alert("success");},function(){alert("error");});
+            });
+            $("#saveTemp-btn").bind('click', function(){
+                var data = getData();
+                data.status = "0";
+                saveBlog(data,function(){alert("success");},function(){alert("error");});
+            });
+            $("#delete-btn").bind('click', function(){
+                if(confirm("確定刪除本文章？")){
+                var data = getData();
+                    deleteBlog(data,function(){alert("success");},function(){alert("error");});
+                }
+            });
+            function getData(status){
+                var title = $("#title").val();
+                var introduction = $("#introduction").val();
+                var tags = $("#tags").val().split(',');
+                var date = new Date();
+                var context = testEditor.getHTML();
+                var markdown = testEditor.getMarkdown();
+                
+                var data = {
+                    title :title,
+                    introduction:introduction,
+                    tags:tags,
+                    date:date,
+                    status:status,
+                    context:context,
+                    markdown:markdown,
+                    count:count
+                    };
+                return data;
+            }
+        </script>
+    </body>
+</html>
